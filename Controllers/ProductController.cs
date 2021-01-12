@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Data;
 using ProductCatalog.Models;
+using ProductCatalog.Repositories;
 using ProductCatalog.ViewModels;
 using ProductCatalog.ViewModels.ProductViewModels;
 
@@ -19,32 +20,21 @@ namespace ProductCatalog.Controllers
         [HttpGet]
         [Route("")]
         [ResponseCache(Duration = 3600)]
-        public async Task<ActionResult<List<ListProductViewModel>>> Get([FromServices] StoreDataContext context)
+        public async Task<ActionResult<List<ListProductViewModel>>> Get([FromServices] ProductRepository repository)
         {
-            return await context.Products
-            .Include(x => x.Category)
-            .Select(x => new ListProductViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Price = x.Price,
-                Category = x.Category.Title,
-                CategoryId = x.Category.Id
-            })
-            .AsNoTracking()
-            .ToListAsync();
+            return await repository.Get();
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Product>> Get([FromServices] StoreDataContext context, int id)
+        public async Task<ActionResult<Product>> Get([FromServices] ProductRepository repository, int id)
         {
-            return await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return await repository.Get(id);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<ResultViewModel>> Post([FromServices] StoreDataContext context, [FromBody] EditorProductViewModel model)
+        public async Task<ActionResult<ResultViewModel>> Post([FromServices] ProductRepository repository, [FromBody] EditorProductViewModel model)
         {
 
             model.Validate();
@@ -66,8 +56,7 @@ namespace ProductCatalog.Controllers
             product.Price = model.Price;
             product.Quantity = model.Quantity;
 
-            context.Products.Add(product);
-            await context.SaveChangesAsync();
+            await repository.Save(product);
 
             return new ResultViewModel
             {
@@ -79,7 +68,7 @@ namespace ProductCatalog.Controllers
 
         [HttpPut]
         [Route("")]
-        public async Task<ActionResult<ResultViewModel>> Put([FromServices] StoreDataContext context, [FromBody] EditorProductViewModel model)
+        public async Task<ActionResult<ResultViewModel>> Put([FromServices] ProductRepository repository, [FromBody] EditorProductViewModel model)
         {
 
             model.Validate();
@@ -91,7 +80,7 @@ namespace ProductCatalog.Controllers
                     Data = model.Notifications
                 };
 
-            var product = context.Products.Find(model.Id);
+            var product = await repository.Get(model.Id);
             product.Title = model.Title;
             product.CategoryId = model.CategoryId;
             //product.CreateDate = DateTime.Now;
@@ -101,8 +90,7 @@ namespace ProductCatalog.Controllers
             product.Price = model.Price;
             product.Quantity = model.Quantity;
 
-            context.Entry<Product>(product).State = EntityState.Modified;
-            await context.SaveChangesAsync();
+            await repository.Update(product);
 
             return new ResultViewModel
             {
@@ -114,11 +102,9 @@ namespace ProductCatalog.Controllers
 
         [HttpDelete]
         [Route("")]
-        public async Task<ActionResult<Product>> Delete([FromServices] StoreDataContext context, [FromBody] Product model)
+        public async Task<ActionResult<Product>> Delete([FromServices] ProductRepository repository, [FromBody] Product model)
         {
-            context.Products.Remove(model);
-            await context.SaveChangesAsync();
-
+            await repository.Delete(model);
             return model;
         }
     }
