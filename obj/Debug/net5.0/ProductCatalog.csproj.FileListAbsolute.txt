@@ -61,3 +61,4 @@ D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Microsoft.Extensions.Dependen
 D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 D:\Educação\.NET\ProductCatalog\obj\Debug\net5.0\ProductCatalog.RazorAssemblyInfo.cache
 D:\Educação\.NET\ProductCatalog\obj\Debug\net5.0\ProductCatalog.RazorAssemblyInfo.cs
+D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Flunt.dll

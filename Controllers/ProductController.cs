@@ -46,6 +46,16 @@ namespace ProductCatalog.Controllers
         [Route("")]
         public async Task<ActionResult<ResultViewModel>> Post([FromServices] StoreDataContext context, [FromBody] EditorProductViewModel model)
         {
+
+            model.Validate();
+            if (model.Invalid)
+                return new ResultViewModel
+                {
+                    Success = false,
+                    Message = "Não foi possível inserir o produto",
+                    Data = model.Notifications
+                };
+
             var product = new Product();
             product.Title = model.Title;
             product.CategoryId = model.CategoryId;
@@ -71,6 +81,16 @@ namespace ProductCatalog.Controllers
         [Route("")]
         public async Task<ActionResult<ResultViewModel>> Put([FromServices] StoreDataContext context, [FromBody] EditorProductViewModel model)
         {
+
+            model.Validate();
+            if (model.Invalid)
+                return new ResultViewModel
+                {
+                    Success = false,
+                    Message = "Não foi possível alterar o produto",
+                    Data = model.Notifications
+                };
+
             var product = context.Products.Find(model.Id);
             product.Title = model.Title;
             product.CategoryId = model.CategoryId;

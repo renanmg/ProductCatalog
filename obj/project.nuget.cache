@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wKP8r0gw/8vB2Gk7IgC2iCZ+DiPWMZMmSrTZdV4rIUCtKOrQeD5lYRHc6zg+5GSsMv891WMNNYkr2ZNTxPmcLQ==",
+  "dgSpecHash": "cycbVliLlwE5lVJGfX5jh2/twUFyIs4liYvCg9QkXND5hKmJul2kFAFWQHa11o320dG7ab317sEzRVzT9OwA4Q==",
   "success": true,
   "projectFilePath": "D:\\Educação\\.NET\\ProductCatalog\\ProductCatalog.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\marti\\.nuget\\packages\\flunt\\1.0.5\\flunt.1.0.5.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
