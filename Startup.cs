@@ -11,9 +11,21 @@ namespace ProductCatalog
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddResponseCompression();
             services.AddScoped<StoreDataContext, StoreDataContext>();
             services.AddTransient<ProductRepository, ProductRepository>();
-            services.AddControllers();
+
+           services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Product Catalog",
+                    Description = "Available Web APIs"
+                });
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -24,8 +36,15 @@ namespace ProductCatalog
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseResponseCompression();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "Product Catalog API");
+            });
 
             app.UseEndpoints(endpoints =>
             {

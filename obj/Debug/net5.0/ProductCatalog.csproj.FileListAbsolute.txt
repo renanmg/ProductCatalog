@@ -62,3 +62,8 @@ D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 D:\Educação\.NET\ProductCatalog\obj\Debug\net5.0\ProductCatalog.RazorAssemblyInfo.cache
 D:\Educação\.NET\ProductCatalog\obj\Debug\net5.0\ProductCatalog.RazorAssemblyInfo.cs
 D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Flunt.dll
+D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Educação\.NET\ProductCatalog\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Educação\.NET\ProductCatalog\obj\Debug\net5.0\ProductCatalog.MvcApplicationPartsAssemblyInfo.cs
