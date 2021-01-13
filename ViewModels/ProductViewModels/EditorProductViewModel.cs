@@ -19,7 +19,9 @@ namespace ProductCatalog.ViewModels.ProductViewModels
                 new Contract()
                 .HasMaxLen(Title, 120, "Title", "O título deve conter até 120 caracteres")
                 .HasMinLen(Title, 3, "Title", "O título deve conter pelo menos 3 caracteres")
-                .IsGreaterThan(Price,0,"Price","O preço deve ser maior que zero")
+                .HasMaxLen(Description, 1024, "Description", "A descrição deve conter até 1024 caracteres")
+                .IsNotNullOrEmpty(Description, "Description", "A descrição deve ser preenchida")
+                .IsGreaterThan(Price, 0, "Price", "O preço deve ser maior que zero")
             );
         }
     }

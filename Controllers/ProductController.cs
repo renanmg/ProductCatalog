@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProductCatalog.Data;
 using ProductCatalog.Models;
 using ProductCatalog.Repositories;
 using ProductCatalog.ViewModels;
@@ -19,7 +16,7 @@ namespace ProductCatalog.Controllers
 
         [HttpGet]
         [Route("")]
-        [ResponseCache(Duration = 3600)]
+        [ResponseCache(Duration = 5)]
         public async Task<ActionResult<List<ListProductViewModel>>> Get([FromServices] ProductRepository repository)
         {
             return await repository.Get();
