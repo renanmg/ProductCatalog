@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Data;
 using ProductCatalog.Models;
+using ProductCatalog.Repositories.Interfaces;
 
 namespace ProductCatalog.Controllers
 {
@@ -16,53 +17,47 @@ namespace ProductCatalog.Controllers
         [HttpGet]
         [Route("")]
         [ResponseCache(Duration = 3600)]
-        public async Task<ActionResult<List<Category>>> Get([FromServices] StoreDataContext context)
+        public async Task<ActionResult<List<Category>>> Get([FromServices] ICategoryRepository repository)
         {
-            return await context.Categories.AsNoTracking().ToListAsync();
+            return await repository.Get();
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Category>> Get([FromServices] StoreDataContext context, int id)
+        public async Task<ActionResult<Category>> Get([FromServices] ICategoryRepository repository, int id)
         {
-            return await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return await repository.Get(id);
         }
 
         [HttpGet]
         [Route("{id:int}/products")]
         [ResponseCache(Duration = 30)]
-        public async Task<ActionResult<List<Product>>> GetProducts([FromServices] StoreDataContext context, int id)
+        public async Task<ActionResult<List<Product>>> GetProducts([FromServices] ICategoryRepository repository, int id)
         {
-            return await context.Products.AsNoTracking().Where(x => x.CategoryId == id).ToListAsync();
+            return await repository.GetProducts(id);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Category>> Post([FromServices] StoreDataContext context, [FromBody] Category model)
+        public async Task<ActionResult<Category>> Post([FromServices] ICategoryRepository repository, [FromBody] Category model)
         {
-            context.Categories.Add(model);
-            await context.SaveChangesAsync();
-
+            await repository.Save(model);
             return model;
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<ActionResult<Category>> Put([FromServices] StoreDataContext context, [FromBody] Category model)
+        public async Task<ActionResult<Category>> Put([FromServices] ICategoryRepository repository, [FromBody] Category model)
         {
-            context.Entry<Category>(model).State = EntityState.Modified;
-            await context.SaveChangesAsync();
-
+            await repository.Update(model);
             return model;
         }
 
         [HttpDelete]
         [Route("")]
-        public async Task<ActionResult<Category>> Delete([FromServices] StoreDataContext context, [FromBody] Category model)
+        public async Task<ActionResult<Category>> Delete([FromServices] ICategoryRepository repository, [FromBody] Category model)
         {
-            context.Categories.Remove(model);
-            await context.SaveChangesAsync();
-
+            await repository.Delete(model);
             return model;
         }
     }

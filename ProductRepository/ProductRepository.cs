@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ProductCatalog.Models;
+using ProductCatalog.Repositories.Interfaces;
 
 namespace ProductCatalog.Repositories
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
 
         private readonly StoreDataContext _context;

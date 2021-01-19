@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProductCatalog.Data;
 using ProductCatalog.Repositories;
+using ProductCatalog.Repositories.Interfaces;
 
 namespace ProductCatalog
 {
@@ -14,7 +15,8 @@ namespace ProductCatalog
             services.AddControllers();
             services.AddResponseCompression();
             services.AddScoped<StoreDataContext, StoreDataContext>();
-            services.AddTransient<ProductRepository, ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
            services.AddSwaggerGen(c =>
             {
